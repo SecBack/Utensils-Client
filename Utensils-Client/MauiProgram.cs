@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using Radzen;
 using Utensils_Client.Data;
 
 namespace Utensils_Client;
@@ -21,9 +22,14 @@ public static class MauiProgram
 		builder.Services.AddBlazorWebViewDeveloperTools();
 		builder.Logging.AddDebug();
 #endif
+        //builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
-		builder.Services.AddSingleton<WeatherForecastService>();
+        builder.Services.AddSingleton<WeatherForecastService>();
 
-		return builder.Build();
+		// radzen services
+        builder.Services.AddScoped<DialogService>();
+        builder.Services.AddScoped<NotificationService>();
+
+        return builder.Build();
 	}
 }
