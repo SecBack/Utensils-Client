@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +10,9 @@ namespace Utensils_Client.Pages
 {
     public class CalenderPageLogic : ComponentBase
     {
+        protected override async Task OnInitializedAsync()
+        {
+            
+        }
     }
 }

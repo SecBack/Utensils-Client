@@ -1,4 +1,22 @@
 ﻿@page "/calender"
 @inherits CalenderPageLogic
 
-<div>hey from calender</div>
+<RadzenScheduler 
+    @ref=@Scheduler
+    Data=@Events
+    TItem="Event"
+    SlotRender=@OnSlotRender
+    SlotSelect=@OnSlotSelect
+    AppointmentSelect=@OnEventSelect
+    AppointmentRender=@OnEventRender
+    StartProperty="StartDate"
+    EndProperty="EndDate"
+    TextProperty="Name"
+    SelectedIndex="2"
+    style="height: 768px;"
+>
+    <RadzenDayView />
+    <RadzenWeekView />
+    <RadzenMonthView />
+    <RadzenYearView />
+</RadzenScheduler>
