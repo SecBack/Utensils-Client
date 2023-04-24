@@ -54,4 +54,8 @@
         <PackageReference Include="Radzen.Blazor" Version="4.9.2" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\Utensils-Api\Shared\Shared.csproj" />
+    </ItemGroup>
+
 </Project>

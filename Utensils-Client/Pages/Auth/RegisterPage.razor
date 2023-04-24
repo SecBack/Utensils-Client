@@ -1,0 +1,36 @@
+﻿@page "/login"
+@using global::Shared.DtoModels;
+@inherits RegisterPageLogic
+
+<RadzenCard>
+    <RadzenTemplateForm Data="RegisterModel" TItem="RegisterModel" Submit=@OnRegister>
+        <RadzenStack>
+            <RadzenFormField>
+                <ChildContent>
+                    <RadzenTextBox Name="Username" @bind-Value=@RegisterModel.Name />
+                </ChildContent>
+                <Helper>
+                    <RadzenRequiredValidator Component="Username" Text="Name is required" />
+                </Helper>
+            </RadzenFormField>
+            <RadzenFormField Text="Email">
+                <ChildContent>
+                    <RadzenPassword Name="Email" @bind-Value=@RegisterModel.Email />
+                </ChildContent>
+                <Helper>
+                    <RadzenRequiredValidator Component="Email" Text="Email is required" />
+                </Helper>
+            </RadzenFormField>
+            <RadzenFormField Text="Email">
+                <ChildContent>
+                    <RadzenPassword Name="Password" @bind-Value=@RegisterModel.Password />
+                </ChildContent>
+                <Helper>
+                    <RadzenRequiredValidator Component="Password" Text="Password is required" />
+                </Helper>
+            </RadzenFormField>
+        </RadzenStack>
+
+        <RadzenButton ButtonType="ButtonType.Submit" Size="ButtonSize.Large" Text="Register" />
+    </RadzenTemplateForm>
+</RadzenCard>
