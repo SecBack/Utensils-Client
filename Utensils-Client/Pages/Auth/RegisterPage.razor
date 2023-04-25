@@ -1,11 +1,12 @@
-﻿@page "/login"
+﻿@page "/register"
 @using global::Shared.DtoModels;
 @inherits RegisterPageLogic
+@attribute [Microsoft.AspNetCore.Authorization.AllowAnonymous]
 
 <RadzenCard>
     <RadzenTemplateForm Data="RegisterModel" TItem="RegisterModel" Submit=@OnRegister>
         <RadzenStack>
-            <RadzenFormField>
+            <RadzenFormField Text="First Name">
                 <ChildContent>
                     <RadzenTextBox Name="Username" @bind-Value=@RegisterModel.Name />
                 </ChildContent>
@@ -13,7 +14,7 @@
                     <RadzenRequiredValidator Component="Username" Text="Name is required" />
                 </Helper>
             </RadzenFormField>
-            <RadzenFormField Text="Email">
+            <RadzenFormField Text="First Email">
                 <ChildContent>
                     <RadzenPassword Name="Email" @bind-Value=@RegisterModel.Email />
                 </ChildContent>
@@ -21,7 +22,7 @@
                     <RadzenRequiredValidator Component="Email" Text="Email is required" />
                 </Helper>
             </RadzenFormField>
-            <RadzenFormField Text="Email">
+            <RadzenFormField Text="Password">
                 <ChildContent>
                     <RadzenPassword Name="Password" @bind-Value=@RegisterModel.Password />
                 </ChildContent>

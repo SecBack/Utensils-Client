@@ -5,7 +5,7 @@ namespace Utensils_Client.Pages.Auth
 {
     public class RegisterPageLogic : ComponentBase
     {
-        public RegisterModel RegisterModel { get; set; }
+        public RegisterModel RegisterModel { get; set; } = new RegisterModel();
 
         protected void OnRegister()
         {
