@@ -3,6 +3,8 @@ using Microsoft.Extensions.Logging;
 using Radzen;
 using Utensils_Client.Data;
 using Utensils_Client.Shared;
+using Utensils_Client.Shared.Handlers;
+using Utensils_Client.Shared.Services;
 
 namespace Utensils_Client;
 
@@ -24,7 +26,13 @@ public static class MauiProgram
 		builder.Services.AddBlazorWebViewDeveloperTools();
 		builder.Logging.AddDebug();
 #endif
-        builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+
+		// Add a hhtpclient factory, with a named client, set the baseaddress and add
+		// a delegation handler
+		builder.Services.AddHttpClient("Auth", client => client.BaseAddress = new Uri("https://localhost:7242"));
+            
+        builder.Services.AddHttpClient("Data", client => client.BaseAddress = new Uri("https://localhost:7242"))
+            .AddHttpMessageHandler(() => new TokenHandler());
 
         //Register needed elements for authentication
         builder.Services.AddAuthorizationCore();
@@ -32,6 +40,8 @@ public static class MauiProgram
         builder.Services.AddScoped<AuthenticationStateProvider>(s => s.GetRequiredService<CustomAuthenticationStateProvider>());
 
         builder.Services.AddSingleton<WeatherForecastService>();
+		builder.Services.AddScoped<AuthService>();
+		builder.Services.AddScoped<ApiService>();
 
 		// radzen services
         builder.Services.AddScoped<DialogService>();

@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components.Authorization;
+using Newtonsoft.Json;
+using Shared.DtoModels;
 using System.Security.Claims;
 
 namespace Utensils_Client.Shared
@@ -20,10 +22,11 @@ namespace Utensils_Client.Shared
         /// </summary>
         /// <param name="token">Our JWT to store</param>
         /// <returns></returns>
-        public async Task Login(string token)
+        public async Task Login(UserDto userDto)
         {
             //Again, this is what I'm doing, but you could do/store/save anything as part of this process
-            await SecureStorage.SetAsync("authtoken", token);
+            string userDtoJson = JsonConvert.SerializeObject(userDto);
+            await SecureStorage.SetAsync("userDto", userDtoJson);
 
             //Providing the current identity ifnormation
             NotifyAuthenticationStateChanged(GetAuthenticationStateAsync());
@@ -36,7 +39,7 @@ namespace Utensils_Client.Shared
         /// <returns></returns>
         public async Task Logout()
         {
-            SecureStorage.Remove("authtoken");
+            SecureStorage.Remove("userDto");
             NotifyAuthenticationStateChanged(GetAuthenticationStateAsync());
         }
 
@@ -50,10 +53,15 @@ namespace Utensils_Client.Shared
         {
             try
             {
-                var userInfo = await SecureStorage.GetAsync("authtoken");
-                if (userInfo != null)
+                var userString = await SecureStorage.GetAsync("userDto");
+                UserDto user = JsonConvert.DeserializeObject<UserDto>(userString);
+                if (user != null)
                 {
-                    var claims = new[] { new Claim(ClaimTypes.Name, "Sample User") };
+                    var claims = new[] {
+                        new Claim(ClaimTypes.Name, user.Name),
+                        new Claim(ClaimTypes.Email, user.Email),
+                        new Claim(ClaimTypes.MobilePhone)
+                    };
                     var identity = new ClaimsIdentity(claims, "Custom authentication");
                     return new AuthenticationState(new ClaimsPrincipal(identity));
                 }

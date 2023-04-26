@@ -3,11 +3,11 @@
 @attribute [Microsoft.AspNetCore.Authorization.AllowAnonymous]
 
 <RadzenCard class="rz-my-12 rz-mx-auto rz-p-4 rz-p-md-12" style="max-width: 600px;">
-    <RadzenTemplateForm Data=@LoginModel>
+    <RadzenTemplateForm Data=@LoginDto>
         <RadzenLogin
             AllowResetPassword="false"
-            Username="@LoginModel.Email"
-            Password="@LoginModel.Password"
-            Register=@OnRegister />
+            Username="@LoginDto.UserName"
+            Password="@LoginDto.Password"
+            Register=@NavigateToRegister />
     </RadzenTemplateForm>
 </RadzenCard>

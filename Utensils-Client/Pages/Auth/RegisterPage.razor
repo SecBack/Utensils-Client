@@ -4,7 +4,7 @@
 @attribute [Microsoft.AspNetCore.Authorization.AllowAnonymous]
 
 <RadzenCard>
-    <RadzenTemplateForm Data="RegisterModel" TItem="RegisterModel" Submit=@OnRegister>
+    <RadzenTemplateForm Data="RegisterModel" TItem="RegisterDto" Submit=@OnRegister>
         <RadzenStack>
             <RadzenFormField Text="First Name">
                 <ChildContent>
@@ -14,9 +14,9 @@
                     <RadzenRequiredValidator Component="Username" Text="Name is required" />
                 </Helper>
             </RadzenFormField>
-            <RadzenFormField Text="First Email">
+            <RadzenFormField Text="Email">
                 <ChildContent>
-                    <RadzenPassword Name="Email" @bind-Value=@RegisterModel.Email />
+                    <RadzenTextBox Name="Email" @bind-Value=@RegisterModel.Email />
                 </ChildContent>
                 <Helper>
                     <RadzenRequiredValidator Component="Email" Text="Email is required" />
