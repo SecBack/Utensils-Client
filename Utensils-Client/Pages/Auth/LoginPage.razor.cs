@@ -17,10 +17,10 @@ namespace Utensils_Client.Pages
             NavigationManager.NavigateTo("/register");
         }
 
-        protected async Task OnLogin(LoginDto loginDto)
+        protected async Task OnLogin()
         {
             // use the auth service to login the user
-            await AuthService.Login(loginDto);
+            await AuthService.Login(LoginDto);
         }
     }
 }

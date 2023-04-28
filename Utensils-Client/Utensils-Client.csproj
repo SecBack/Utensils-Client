@@ -53,7 +53,8 @@
         <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="7.0.5" />
         <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
-        <PackageReference Include="Radzen.Blazor" Version="4.9.2" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+        <PackageReference Include="Radzen.Blazor" Version="4.10.1" />
     </ItemGroup>
 
     <ItemGroup>

@@ -1,13 +1,31 @@
 ﻿@page "/login"
+@using global::Shared.DtoModels;
 @inherits LoginPageLogic
 @attribute [Microsoft.AspNetCore.Authorization.AllowAnonymous]
 
 <RadzenCard class="rz-my-12 rz-mx-auto rz-p-4 rz-p-md-12" style="max-width: 600px;">
-    <RadzenTemplateForm Data=@LoginDto>
-        <RadzenLogin
-            AllowResetPassword="false"
-            Username="@LoginDto.UserName"
-            Password="@LoginDto.Password"
-            Register=@NavigateToRegister />
+    <RadzenTemplateForm Data=@LoginDto TItem="LoginDto" Submit=@OnLogin>
+        <RadzenStack>
+            <RadzenFormField Text="First Name">
+                <ChildContent>
+                    <RadzenTextBox Name="Username" @bind-Value=@LoginDto.UserName />
+                </ChildContent>
+                <Helper>
+                    <RadzenRequiredValidator Component="Username" Text="Name is required" />
+                </Helper>
+            </RadzenFormField>
+
+            <RadzenFormField Text="Password">
+                <ChildContent>
+                    <RadzenPassword Name="Password" @bind-Value=@LoginDto.Password />
+                </ChildContent>
+                <Helper>
+                    <RadzenRequiredValidator Component="Password" Text="Password is required" />
+                </Helper>
+            </RadzenFormField>
+        </RadzenStack>
+
+        <RadzenButton Style="margin-top: 10px" ButtonType="ButtonType.Submit" Size="ButtonSize.Large" Text="Login" />
+        <RadzenButton Click=@NavigateToRegister Text="Register" />
     </RadzenTemplateForm>
 </RadzenCard>

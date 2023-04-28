@@ -1,10 +1,13 @@
 ﻿@inherits BottomNavigationLogic
 
-<RadzenRow>
-    <RadzenColumn>
-        <RadzenLink Path="calender" Text="Calender"></RadzenLink>
-    </RadzenColumn>
-    <RadzenColumn>
-        <RadzenLink Path="user" Text="User"></RadzenLink>
-    </RadzenColumn>
-</RadzenRow>
+<div class="footer">
+    <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" JustifyContent="JustifyContent.Center" Gap="50px">
+        <RadzenLink Path="calender">
+            <RadzenButton Icon="event"></RadzenButton>
+        </RadzenLink>
+        
+        <RadzenLink Path="user">
+            <RadzenButton Icon="accessibility"></RadzenButton>
+        </RadzenLink>
+    </RadzenStack>
+</div>

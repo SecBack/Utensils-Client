@@ -57,12 +57,12 @@ namespace Utensils_Client.Shared
                 UserDto user = JsonConvert.DeserializeObject<UserDto>(userString);
                 if (user != null)
                 {
-                    var claims = new[] {
+                    var identity = new ClaimsIdentity(new[]
+                    {
                         new Claim(ClaimTypes.Name, user.Name),
-                        new Claim(ClaimTypes.Email, user.Email),
-                        new Claim(ClaimTypes.MobilePhone)
-                    };
-                    var identity = new ClaimsIdentity(claims, "Custom authentication");
+                        new Claim(ClaimTypes.Email, user.Email)
+                    }, "Custom authentication");
+
                     return new AuthenticationState(new ClaimsPrincipal(identity));
                 }
             }

@@ -1,0 +1,28 @@
+﻿@page "/user"
+@inherits UserPageLogic
+
+<RadzenStack Orientation="Orientation.Vertical" AlignItems="AlignItems.Center">
+    <RadzenCard Style="rounded">
+        <RadzenRow>
+            <RadzenColumn>
+                <RadzenText Text="Find your groups"></RadzenText>
+            </RadzenColumn>
+            <RadzenColumn>
+                <RadzenAutoComplete Placeholder="search..."></RadzenAutoComplete>
+            </RadzenColumn>
+            <hr />
+            <RadzenDataGrid Data=" ">
+
+            </RadzenDataGrid>
+        </RadzenRow>
+
+    </RadzenCard>
+
+    <RadzenCard>
+        members of the chosen group, plus settings for the group
+    </RadzenCard>
+
+    <RadzenCard>
+        dinner team something... maybe acordion?
+    </RadzenCard>
+</RadzenStack>
