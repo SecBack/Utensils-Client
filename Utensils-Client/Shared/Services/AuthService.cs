@@ -23,9 +23,12 @@ namespace Utensils_Client.Shared.Services
             httpClient = this.httpClientFactory.CreateClient("Auth");
         }
 
-        public async Task Register(RegisterDto registerModel)
+        public async Task Register(RegisterDto registerDto)
         {
-            HttpResponseMessage response = await httpClient.PostAsJsonAsync("/register", registerModel);
+            HttpResponseMessage response = await httpClient.PostAsJsonAsync("/register", registerDto);
+
+            var ehj = "hej";
+
             if (response.IsSuccessStatusCode)
             {
                 AuthModel user = await response.Content.ReadFromJsonAsync<AuthModel>();
@@ -35,9 +38,12 @@ namespace Utensils_Client.Shared.Services
             }
         }
 
-        public async Task Login(LoginDto loginModel)
+        public async Task Login(LoginDto loginDto)
         {
-            HttpResponseMessage response = await httpClient.PostAsJsonAsync("/login", loginModel);
+            HttpResponseMessage response = await httpClient.PostAsJsonAsync("/login", loginDto);
+
+            var ehj = "hej";
+
             if (response.IsSuccessStatusCode)
             {
                 AuthModel user = await response.Content.ReadFromJsonAsync<AuthModel>();

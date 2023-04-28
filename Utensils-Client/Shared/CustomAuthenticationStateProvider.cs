@@ -71,12 +71,12 @@ namespace Utensils_Client.Shared
                 AuthModel user = JsonConvert.DeserializeObject<AuthModel>(userString);
                 if (user != null)
                 {
-                    var claims = new[] {
-                        new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                    var identity = new ClaimsIdentity(new[]
+                    {
                         new Claim(ClaimTypes.Name, user.Name),
-                        new Claim(ClaimTypes.Email, user.Email),
-                    };
-                    var identity = new ClaimsIdentity(claims, "Custom authentication");
+                        new Claim(ClaimTypes.Email, user.Email)
+                    }, "Custom authentication");
+
                     return new AuthenticationState(new ClaimsPrincipal(identity));
                 }
             }
