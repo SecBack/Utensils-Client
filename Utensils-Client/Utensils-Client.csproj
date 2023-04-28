@@ -54,11 +54,7 @@
         <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-<<<<<<< HEAD
-        <PackageReference Include="Radzen.Blazor" Version="4.9.2" />
-=======
         <PackageReference Include="Radzen.Blazor" Version="4.10.1" />
->>>>>>> 55218e4cc7a2908e5832a3c2a92fcd7e783cf6ed
     </ItemGroup>
 
     <ItemGroup>

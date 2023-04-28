@@ -1,4 +1,5 @@
-﻿using Shared.Dto.Auth;
+﻿using Newtonsoft.Json;
+using Shared.Dto.Auth;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,21 +10,27 @@ namespace Utensils_Client.Shared.Handlers
 {
     public class TokenHandler : DelegatingHandler
     {
-        private CustomAuthenticationStateProvider _stateProvider;
-
-        public TokenHandler(CustomAuthenticationStateProvider customAuthenticationStateProvider)
-        {
-            _stateProvider = customAuthenticationStateProvider;
-        }
-
         protected override async Task<HttpResponseMessage> SendAsync(
             HttpRequestMessage request,
             CancellationToken cancellationToken
         ) {
-            string token = await _stateProvider.GetUserToken();
+            string token = await GetUserToken();
             request.Headers.Add("Bearer", token);
 
             return await base.SendAsync(request, cancellationToken);
+        }
+
+        public async Task<string> GetUserToken()
+        {
+            var userJson = await SecureStorage.GetAsync("user");
+            if (userJson == null)
+            {
+                return null;
+            }
+
+            AuthModel user = JsonConvert.DeserializeObject<AuthModel>(userJson);
+
+            return user.Token;
         }
     }
 }

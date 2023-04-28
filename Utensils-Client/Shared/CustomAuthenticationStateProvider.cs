@@ -16,19 +16,6 @@ namespace Utensils_Client.Shared
         {
         }
 
-        public async Task<string> GetUserToken()
-        {
-            var userJson = await SecureStorage.GetAsync("user");
-            if (userJson == null)
-            {
-                await Logout();
-                return null;
-            }
-
-            AuthModel user = JsonConvert.DeserializeObject<AuthModel>(userJson);
-            
-            return user.Token;
-        }
 
         /// <summary>
         /// This method should be called upon a successful user login, and it will store the user's JWT token in SecureStorage.
@@ -73,6 +60,7 @@ namespace Utensils_Client.Shared
                 {
                     var identity = new ClaimsIdentity(new[]
                     {
+                        new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                         new Claim(ClaimTypes.Name, user.Name),
                         new Claim(ClaimTypes.Email, user.Email)
                     }, "Custom authentication");
