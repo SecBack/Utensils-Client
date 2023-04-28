@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Shared.DtoModels;
+using Shared.Dto.Auth;
 using System.Net.Http.Json;
-using Utensils_Client.Shared;
 
 namespace Utensils_Client.Shared.Services
 {
@@ -29,8 +28,8 @@ namespace Utensils_Client.Shared.Services
             HttpResponseMessage response = await httpClient.PostAsJsonAsync("/register", registerModel);
             if (response.IsSuccessStatusCode)
             {
-                UserDto userDto = await response.Content.ReadFromJsonAsync<UserDto>();
-                await customAuthenticationStateProvider.Login(userDto);
+                AuthModel user = await response.Content.ReadFromJsonAsync<AuthModel>();
+                await customAuthenticationStateProvider.Login(user);
 
                 navigationManager.NavigateTo("/calender");
             }
@@ -41,8 +40,8 @@ namespace Utensils_Client.Shared.Services
             HttpResponseMessage response = await httpClient.PostAsJsonAsync("/login", loginModel);
             if (response.IsSuccessStatusCode)
             {
-                UserDto userDto = await response.Content.ReadFromJsonAsync<UserDto>();
-                await customAuthenticationStateProvider.Login(userDto);
+                AuthModel user = await response.Content.ReadFromJsonAsync<AuthModel>();
+                await customAuthenticationStateProvider.Login(user);
 
                 navigationManager.NavigateTo("/calender");
             }

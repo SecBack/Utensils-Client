@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Shared.DtoModels;
-using Utensils_Client.Shared;
+using Shared.Dto.Auth;
 using Utensils_Client.Shared.Services;
 
 namespace Utensils_Client.Pages

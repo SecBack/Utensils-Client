@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components.Authorization;
 using Newtonsoft.Json;
-using Shared.DtoModels;
+using Shared.Dto.Auth;
 using System.Security.Claims;
 
 namespace Utensils_Client.Shared
@@ -16,17 +16,31 @@ namespace Utensils_Client.Shared
         {
         }
 
+        public async Task<string> GetUserToken()
+        {
+            var userJson = await SecureStorage.GetAsync("user");
+            if (userJson == null)
+            {
+                await Logout();
+                return null;
+            }
+
+            AuthModel user = JsonConvert.DeserializeObject<AuthModel>(userJson);
+            
+            return user.Token;
+        }
+
         /// <summary>
         /// This method should be called upon a successful user login, and it will store the user's JWT token in SecureStorage.
         /// Upon saving this it will also notify .NET that the authentication state has changed which will enable authenticated views
         /// </summary>
         /// <param name="token">Our JWT to store</param>
         /// <returns></returns>
-        public async Task Login(UserDto userDto)
+        public async Task Login(AuthModel user)
         {
             //Again, this is what I'm doing, but you could do/store/save anything as part of this process
-            string userDtoJson = JsonConvert.SerializeObject(userDto);
-            await SecureStorage.SetAsync("userDto", userDtoJson);
+            string userJson = JsonConvert.SerializeObject(user);
+            await SecureStorage.SetAsync("user", userJson);
 
             //Providing the current identity ifnormation
             NotifyAuthenticationStateChanged(GetAuthenticationStateAsync());
@@ -39,7 +53,7 @@ namespace Utensils_Client.Shared
         /// <returns></returns>
         public async Task Logout()
         {
-            SecureStorage.Remove("userDto");
+            SecureStorage.Remove("user");
             NotifyAuthenticationStateChanged(GetAuthenticationStateAsync());
         }
 
@@ -53,14 +67,14 @@ namespace Utensils_Client.Shared
         {
             try
             {
-                var userString = await SecureStorage.GetAsync("userDto");
-                UserDto user = JsonConvert.DeserializeObject<UserDto>(userString);
+                var userString = await SecureStorage.GetAsync("user");
+                AuthModel user = JsonConvert.DeserializeObject<AuthModel>(userString);
                 if (user != null)
                 {
                     var claims = new[] {
+                        new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                         new Claim(ClaimTypes.Name, user.Name),
                         new Claim(ClaimTypes.Email, user.Email),
-                        new Claim(ClaimTypes.MobilePhone)
                     };
                     var identity = new ClaimsIdentity(claims, "Custom authentication");
                     return new AuthenticationState(new ClaimsPrincipal(identity));

@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Shared.DtoModels;
+using Shared.Dto.Auth;
 using System.Net.Http;
 using System.Net.Http.Json;
 using Utensils_Client.Shared;
