@@ -41,7 +41,7 @@ public static class MauiProgram
 
         builder.Services.AddSingleton<WeatherForecastService>();
 		builder.Services.AddScoped<AuthService>();
-		builder.Services.AddScoped<ApiService>();
+		builder.Services.AddScoped<GroupService>();
 
 		// radzen services
         builder.Services.AddScoped<DialogService>();

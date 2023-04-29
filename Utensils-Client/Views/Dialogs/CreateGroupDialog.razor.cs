@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Utensils_Client.Shared.Services
+namespace Utensils_Client.Pages.Dialogs
 {
-    public class ApiService
+    public class CreateGroupDialog
     {
-
     }
 }
