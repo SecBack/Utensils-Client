@@ -38,6 +38,7 @@ namespace Utensils_Client.Shared.Services
         public async Task<GroupDto> CreateGroup(CreateGroupRequest createGroupRequest)
         {
             HttpResponseMessage response = await httpClient.PostAsJsonAsync("/api/groups", createGroupRequest);
+            response.EnsureSuccessStatusCode();
             GroupDto group = await response.Content.ReadFromJsonAsync<GroupDto>();
 
             return group;
