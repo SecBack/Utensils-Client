@@ -1,4 +1,6 @@
 ﻿@page "/user"
+@using Utensils_Client.Pages;
+@using global::Shared.Dto.Models;
 @inherits UserPageLogic
 
 <RadzenStack Orientation="Orientation.Vertical" AlignItems="AlignItems.Center">
@@ -10,12 +12,15 @@
             <RadzenColumn>
                 <RadzenAutoComplete Placeholder="search..."></RadzenAutoComplete>
             </RadzenColumn>
-            <hr />
-            @*<RadzenDataGrid Data=" ">
-
-            </RadzenDataGrid>*@
+            <RadzenColumn>
+                <RadzenButton Text="Create Group" ButtonStyle="ButtonStyle.Secondary" Click=@OnCreateGroup />
+            </RadzenColumn>
         </RadzenRow>
+        <hr />
+        <RadzenDataGrid Data="Groups" TItem="GroupDto">
+                
 
+        </RadzenDataGrid>
     </RadzenCard>
 
     <RadzenCard>

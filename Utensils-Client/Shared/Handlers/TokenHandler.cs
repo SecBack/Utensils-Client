@@ -3,6 +3,7 @@ using Shared.Dto.Auth;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,7 +16,7 @@ namespace Utensils_Client.Shared.Handlers
             CancellationToken cancellationToken
         ) {
             string token = await GetUserToken();
-            request.Headers.Add("Bearer", token);
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
             return await base.SendAsync(request, cancellationToken);
         }

@@ -9,7 +9,7 @@ namespace Utensils_Client.Pages
 
     public class UserPageLogic : ComponentBase
     {
-        [Inject] private DialogService DialogService { get; set; }
+        [Inject] protected DialogService DialogService { get; set; }
         [Inject] private GroupService GroupService { get; set; }
         
         protected List<GroupDto> Groups { get; set; } = new List<GroupDto>();
@@ -21,7 +21,15 @@ namespace Utensils_Client.Pages
 
         protected async Task OnCreateGroup()
         {
-            await DialogService.OpenAsync<CreateGroupDialog>("Create Group", new Dictionary<string, object>() { { "Groups", Groups } });
+            //GroupDto data = await DialogService.OpenAsync<CreateGroupDialog>(
+            //    "Create Group",
+            //    new Dictionary<string, object>() { { "Groups", Groups } });
+
+          
+
+            await DialogService.OpenAsync<CreateGroupDialog>("hej",
+               new Dictionary<string, object>() { { "OrderID", 4 } },
+               new DialogOptions() { Width = "700px", Height = "512px", Resizable = true, Draggable = true });
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Utensils_Client.Pages
         [Inject] private AuthService AuthService { get; set; }
         [Inject] private NavigationManager NavigationManager { get; set; }
 
-        public LoginDto LoginDto { get; set; } = new LoginDto();
+        protected LoginDto LoginDto { get; set; } = new LoginDto();
 
         protected void NavigateToRegister()
         {

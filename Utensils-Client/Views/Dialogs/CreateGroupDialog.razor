@@ -1,12 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿@using Utensils_Client.Shared.Services;
+@using global::Shared.Requests;
+@inject GroupService GroupService
 
-namespace Utensils_Client.Pages.Dialogs
-{
-    class CreateGroupDialog
+<RadzenTemplateForm Data="CreateGroupRequest" TItem="CreateGroupRequest" Submit=@OnCreateGroup>
+    <RadzenStack>
+        <RadzenFormField Text="Group Name">
+            <ChildContent>
+                <RadzenTextBox Name="GroupName" @bind-Value=@CreateGroupRequest.GroupName />
+            </ChildContent>
+            <Helper>
+                <RadzenRequiredValidator Component="GroupName" Text="Group Name is required" />
+            </Helper>
+        </RadzenFormField>
+    </RadzenStack>
+</RadzenTemplateForm>
+
+@code {
+    protected CreateGroupRequest CreateGroupRequest { get; set; } = new CreateGroupRequest();
+
+    public async Task OnCreateGroup()
     {
+        await GroupService.CreateGroup(CreateGroupRequest);
     }
 }
