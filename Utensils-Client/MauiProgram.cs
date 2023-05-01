@@ -29,9 +29,9 @@ public static class MauiProgram
 
 		// Add a hhtpclient factory, with a named client, set the baseaddress and add
 		// a delegation handler
-		builder.Services.AddHttpClient("Auth", client => client.BaseAddress = new Uri("https://localhost:7242"));
+		builder.Services.AddHttpClient("Auth", client => client.BaseAddress = new Uri("http://localhost:5000"));
             
-        builder.Services.AddHttpClient("Data", client => client.BaseAddress = new Uri("https://localhost:7242"))
+        builder.Services.AddHttpClient("Data", client => client.BaseAddress = new Uri("http://localhost:5000"))
             .AddHttpMessageHandler(() => new TokenHandler());
 
         //Register needed elements for authentication

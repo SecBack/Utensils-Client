@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components.Authorization;
 using Newtonsoft.Json;
 using Shared.Dto.Auth;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
 namespace Utensils_Client.Shared
@@ -23,11 +24,10 @@ namespace Utensils_Client.Shared
         /// </summary>
         /// <param name="token">Our JWT to store</param>
         /// <returns></returns>
-        public async Task Login(AuthModel user)
+        public async Task Login(AuthModel auth)
         {
             //Again, this is what I'm doing, but you could do/store/save anything as part of this process
-            string userJson = JsonConvert.SerializeObject(user);
-            await SecureStorage.SetAsync("user", userJson);
+            await SecureStorage.SetAsync("jwtToken", auth.Token);
 
             //Providing the current identity ifnormation
             NotifyAuthenticationStateChanged(GetAuthenticationStateAsync());
@@ -40,7 +40,7 @@ namespace Utensils_Client.Shared
         /// <returns></returns>
         public async Task Logout()
         {
-            SecureStorage.Remove("user");
+            SecureStorage.Remove("jwtToken");
             NotifyAuthenticationStateChanged(GetAuthenticationStateAsync());
         }
 
@@ -54,15 +54,22 @@ namespace Utensils_Client.Shared
         {
             try
             {
-                var userString = await SecureStorage.GetAsync("user");
-                AuthModel user = JsonConvert.DeserializeObject<AuthModel>(userString);
-                if (user != null)
+                string jwtToken = await SecureStorage.GetAsync("jwtToken");
+                if (jwtToken != null)
                 {
+                    var tokenHandler = new JwtSecurityTokenHandler();
+                    var jwtSecurityToken = tokenHandler.ReadJwtToken(jwtToken);
+                    string userId = jwtSecurityToken.Claims.FirstOrDefault(c => c.Type == "sub")?.Value;
+                    string userName = jwtSecurityToken.Claims.FirstOrDefault(c => c.Type == "name")?.Value;
+                    string email = jwtSecurityToken.Claims.FirstOrDefault(c => c.Type == "email")?.Value;
+                    string phone = jwtSecurityToken.Claims.FirstOrDefault(c => c.Type == "phone")?.Value;
+
                     var identity = new ClaimsIdentity(new[]
                     {
-                        new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                        new Claim(ClaimTypes.Name, user.Name),
-                        new Claim(ClaimTypes.Email, user.Email)
+                        new Claim(ClaimTypes.NameIdentifier, userId),
+                        new Claim(ClaimTypes.Name, userName),
+                        new Claim(ClaimTypes.Email, email),
+                        new Claim(ClaimTypes.MobilePhone, phone),
                     }, "Custom authentication");
 
                     return new AuthenticationState(new ClaimsPrincipal(identity));
