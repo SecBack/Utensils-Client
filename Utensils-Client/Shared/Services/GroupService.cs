@@ -27,13 +27,18 @@ namespace Utensils_Client.Shared.Services
         public async Task<List<GroupDto>> GetGroups()
         {
             HttpResponseMessage response = await httpClient.GetAsync("/api/groups");
-
-            var hej = "hej";
-
             List<GroupDto> groups = await response.Content.ReadFromJsonAsync<List<GroupDto>>();
 
             return groups;
         }
+
+        public async Task<GroupDto> GetGroupMembers(Guid groupId)
+        {
+            HttpResponseMessage response = await httpClient.GetAsync($"/api/groups/{groupId}");
+            GroupDto group = await response.Content.ReadFromJsonAsync<GroupDto>();
+
+            return group;
+        }   
 
         public async Task<GroupDto> CreateGroup(CreateGroupRequest createGroupRequest)
         {

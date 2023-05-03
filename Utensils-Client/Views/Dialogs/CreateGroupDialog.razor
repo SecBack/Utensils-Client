@@ -1,6 +1,7 @@
 ﻿@using Utensils_Client.Shared.Services;
 @using global::Shared.Requests;
 @inject GroupService GroupService
+@inject DialogService DialogSerivce
 
 <RadzenTemplateForm Data="CreateGroupRequest" TItem="CreateGroupRequest" Submit=@OnCreateGroup>
     <RadzenStack>
@@ -13,6 +14,8 @@
             </Helper>
         </RadzenFormField>
     </RadzenStack>
+
+    <RadzenButton Style="margin-top: 10px" ButtonType="ButtonType.Submit" Size="ButtonSize.Large" Text="Create" />
 </RadzenTemplateForm>
 
 @code {
@@ -21,5 +24,6 @@
     public async Task OnCreateGroup()
     {
         await GroupService.CreateGroup(CreateGroupRequest);
+        DialogSerivce.Close();
     }
 }

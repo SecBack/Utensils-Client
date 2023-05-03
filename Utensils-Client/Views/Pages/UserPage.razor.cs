@@ -11,25 +11,30 @@ namespace Utensils_Client.Pages
     {
         [Inject] protected DialogService DialogService { get; set; }
         [Inject] private GroupService GroupService { get; set; }
-        
-        protected List<GroupDto> Groups { get; set; } = new List<GroupDto>();
+
+        protected IEnumerable<GroupDto> Groups { get; set; }
+        protected GroupDto? SelectedGroup { get; set; } = null;
 
         protected override async Task OnInitializedAsync()
         {
+            await base.OnInitializedAsync();
+
             Groups = await GroupService.GetGroups();
         }
 
         protected async Task OnCreateGroup()
         {
-            //GroupDto data = await DialogService.OpenAsync<CreateGroupDialog>(
-            //    "Create Group",
-            //    new Dictionary<string, object>() { { "Groups", Groups } });
+            await DialogService.OpenAsync<CreateGroupDialog>(
+                "Create a new Group",
+                new Dictionary<string, object>() { }
+            );
 
-          
+            Groups = await GroupService.GetGroups();
+        }
 
-            await DialogService.OpenAsync<CreateGroupDialog>("hej",
-               new Dictionary<string, object>() { { "OrderID", 4 } },
-               new DialogOptions() { Width = "700px", Height = "512px", Resizable = true, Draggable = true });
+        protected async Task OnGroupSelected(DataGridCellMouseEventArgs<GroupDto> args)
+        {
+            SelectedGroup = await GroupService.GetGroupMembers(args.Data.Id);
         }
     }
 }

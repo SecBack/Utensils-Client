@@ -15,8 +15,8 @@ namespace Utensils_Client.Shared.Handlers
             HttpRequestMessage request,
             CancellationToken cancellationToken
         ) {
-            string token = await GetUserToken();
-            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            //string token = await GetUserToken();
+            //request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
             return await base.SendAsync(request, cancellationToken);
         }

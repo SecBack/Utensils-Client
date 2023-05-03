@@ -17,14 +17,61 @@
             </RadzenColumn>
         </RadzenRow>
         <hr />
-        <RadzenDataGrid Data="Groups" TItem="GroupDto">
-                
-
+        <RadzenDataGrid
+            AllowFiltering="true"
+            FilterPopupRenderMode="PopupRenderMode.OnDemand"
+            FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+            AllowPaging="true"
+            PageSize="4"
+            AllowSorting="true"
+            Data="@Groups"
+            TItem="GroupDto"
+            SelectionMode="DataGridSelectionMode.Single"
+            CellClick=@OnGroupSelected
+        >
+            <Columns>
+                <RadzenDataGridColumn TItem="GroupDto" Property="Name" Title="Name" />
+            </Columns>
         </RadzenDataGrid>
     </RadzenCard>
 
-    <RadzenCard>
-        members of the chosen group, plus settings for the group
+    <RadzenCard Style="rounded">
+        <RadzenRow>
+            <RadzenColumn>
+                @if (SelectedGroup != null) {
+                    <RadzenText Text=@SelectedGroup.Name></RadzenText>
+                } else {
+                    <RadzenText Text="Select a Group above"></RadzenText>
+                }
+            </RadzenColumn>
+        </RadzenRow>
+        <hr>
+        <RadzenAccordion>
+            <RadzenAccordionItem Text="Members">
+            @if (SelectedGroup != null) {
+                <RadzenDataGrid
+                    Data="@SelectedGroup.Users"
+                    TItem="UserDto"
+                    @bind-Value=@SelectedGroup.Users
+                >
+                    <Columns>
+                        <RadzenDataGridColumn TItem="UserDto" Property="UserName" Title="Name" />
+                    </Columns>
+                </RadzenDataGrid>
+            }
+            </RadzenAccordionItem>
+            <RadzenAccordionItem>
+                <RadzenRow>
+                    <RadzenColumn>
+                        <RadzenSwitch @bind-Value=@></RadzenSwitch>
+                    </RadzenColumn>
+                    <RadzenColumn>
+                        <RadzenText Text="Join the group"></RadzenText>
+                    </RadzenColumn>
+                </RadzenRow>
+                <RadzenText Text="Events"></RadzenText>
+            </RadzenAccordionItem>
+        </RadzenAccordion>
     </RadzenCard>
 
     <RadzenCard>
