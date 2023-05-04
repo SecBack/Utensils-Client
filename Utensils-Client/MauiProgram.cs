@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Logging;
 using Radzen;
 using Utensils_Client.Data;
-using Utensils_Client.Shared;
 using Utensils_Client.Shared.Handlers;
 using Utensils_Client.Shared.Services;
 

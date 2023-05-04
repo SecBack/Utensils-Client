@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Radzen;
 using Shared.Dto.Models;
+using Shared.Requests;
+using Utensils_Client.Shared;
 using Utensils_Client.Shared.Services;
 using Utensils_Client.Views.Dialogs;
 
@@ -11,9 +14,10 @@ namespace Utensils_Client.Pages
     {
         [Inject] protected DialogService DialogService { get; set; }
         [Inject] private GroupService GroupService { get; set; }
-
+        [Inject] private AuthService AuthService { get; set; }
         protected IEnumerable<GroupDto> Groups { get; set; }
         protected GroupDto? SelectedGroup { get; set; } = null;
+        protected bool IsMemberOfSelectedGroup { get; set; } = false;
 
         protected override async Task OnInitializedAsync()
         {
@@ -35,6 +39,18 @@ namespace Utensils_Client.Pages
         protected async Task OnGroupSelected(DataGridCellMouseEventArgs<GroupDto> args)
         {
             SelectedGroup = await GroupService.GetGroupMembers(args.Data.Id);
+        }
+
+        protected async Task OnJoinGroupSwitch(GroupDto selectedGroup)
+        {
+            UserDto user = await AuthService.GetCurrentUser();
+            UpdateGroupRequest request = new()
+            {
+                UserId = user.Id,
+                GroupId = selectedGroup.Id
+            };
+
+            SelectedGroup = await GroupService.UpdateGroup(request);
         }
     }
 }

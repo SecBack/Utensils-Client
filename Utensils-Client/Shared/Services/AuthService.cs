@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Shared.Dto.Auth;
+using Shared.Dto.Models;
 using System.Net.Http.Json;
 
 namespace Utensils_Client.Shared.Services
@@ -45,6 +47,25 @@ namespace Utensils_Client.Shared.Services
 
                 _navigationManager.NavigateTo("/calender");
             }
+        }
+
+        public async Task<UserDto> GetCurrentUser()
+        {
+            AuthenticationState authState = await _customAuthenticationStateProvider.GetAuthenticationStateAsync();
+            string? userName = authState.User.Identity.Name;
+
+            if (userName == null)
+            {
+                return null;
+            }
+
+            HttpResponseMessage response = await _httpClient.GetAsync($"/api/users/{userName}");
+            if (!response.IsSuccessStatusCode)
+            {
+                return null;
+            }
+
+            return await response.Content.ReadFromJsonAsync<UserDto>();
         }
     }
 }

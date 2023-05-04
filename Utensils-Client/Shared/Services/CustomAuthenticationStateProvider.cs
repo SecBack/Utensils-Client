@@ -4,7 +4,7 @@ using Shared.Dto.Auth;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
-namespace Utensils_Client.Shared
+namespace Utensils_Client.Shared.Services
 {
     /// <summary>
     /// This is our custom implementation of an authentication state provider.  The primary purpose of this is 
@@ -59,8 +59,8 @@ namespace Utensils_Client.Shared
                 {
                     var tokenHandler = new JwtSecurityTokenHandler();
                     var jwtSecurityToken = tokenHandler.ReadJwtToken(jwtToken);
-                    string userId = jwtSecurityToken.Claims.FirstOrDefault(c => c.Type == "sub")?.Value;
-                    string userName = jwtSecurityToken.Claims.FirstOrDefault(c => c.Type == "name")?.Value;
+                    string userId = jwtSecurityToken.Claims.FirstOrDefault(c => c.Type == "nameid")?.Value;
+                    string userName = jwtSecurityToken.Claims.FirstOrDefault(c => c.Type == "unique_name")?.Value;
                     string email = jwtSecurityToken.Claims.FirstOrDefault(c => c.Type == "email")?.Value;
                     string phone = jwtSecurityToken.Claims.FirstOrDefault(c => c.Type == "phone")?.Value;
 

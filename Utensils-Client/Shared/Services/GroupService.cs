@@ -48,5 +48,14 @@ namespace Utensils_Client.Shared.Services
 
             return group;
         }
+
+        public async Task<GroupDto> UpdateGroup(UpdateGroupRequest updateGroupRequest)
+        {
+            HttpResponseMessage response = await httpClient.PutAsJsonAsync("/api/groups", updateGroupRequest);
+            response.EnsureSuccessStatusCode();
+            GroupDto group = await response.Content.ReadFromJsonAsync<GroupDto>();
+
+            return group;
+        }
     }
 }
