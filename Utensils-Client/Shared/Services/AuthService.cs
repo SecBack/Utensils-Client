@@ -67,5 +67,13 @@ namespace Utensils_Client.Shared.Services
 
             return user;
         }
+
+        public async Task<Guid> GetUserId()
+        {
+            AuthenticationState authState = await _customAuthenticationStateProvider.GetAuthenticationStateAsync();
+            var id = authState.User.Claims.First(c => c.Type.Contains("nameidentifier")).Value;
+
+            return Guid.Parse(id);
+        }
     }
 }

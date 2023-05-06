@@ -40,6 +40,8 @@ public static class MauiProgram
 
 		builder.Services.AddScoped<AuthService>();
 		builder.Services.AddScoped<GroupService>();
+		builder.Services.AddScoped<EventService>();
+		builder.Services.AddScoped<UserService>();
 
 		// radzen services
         builder.Services.AddScoped<DialogService>();

@@ -1,9 +1,22 @@
-﻿@using Utensils_Client.Shared.Services;
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@using Utensils_Client.Shared.Services;
 @inject AuthService AuthService
 
-
 <RadzenHeader>
-    <RadzenButton Text="Logout" Click="OnLogout" Style="float: right;"></RadzenButton>
+    <RadzenRow>
+        <RadzenColumn>
+            <AuthorizeView>
+                <Authorized>
+                    <RadzenButton Text="Logout" Click="OnLogout" Style="float: right;"></RadzenButton>
+                </Authorized>
+                <NotAuthorized>
+                    <RadzenLink Path="login">
+                        <RadzenButton Text="Login" Style="float: right;"></RadzenButton>
+                    </RadzenLink>
+                </NotAuthorized>
+            </AuthorizeView>
+        </RadzenColumn>
+    </RadzenRow>
 </RadzenHeader>
 
 @code {

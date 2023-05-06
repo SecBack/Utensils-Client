@@ -3,11 +3,9 @@
 @using global::Shared.Dto.Models;
 @inherits CalenderPageLogic
 
-hi from calender page
-
 <RadzenScheduler 
     @ref=@Scheduler
-    Data=@Events
+    Data=@UserDetails.Events
     TItem="EventDto"
     SlotRender=@OnSlotRender
     SlotSelect=@OnSlotSelect
@@ -15,13 +13,11 @@ hi from calender page
     AppointmentRender=@OnEventRender
     StartProperty="StartDate"
     EndProperty="EndDate"
-    TextProperty="Name"
+    TextProperty="Title"
     SelectedIndex="2"
-    style="height: 768px;"
 >
     <RadzenDayView />
     <RadzenWeekView />
     <RadzenMonthView />
     <RadzenYearView />
 </RadzenScheduler>
-

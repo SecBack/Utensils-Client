@@ -1,0 +1,54 @@
+﻿@using global::Shared.Dto.Models;
+@inherits EventDialogLogic
+
+<RadzenTemplateForm TItem="EventDto" Data="@Event" Submit=@OnSubmit>
+    <RadzenRow style="margin-bottom: 16px">
+        <RadzenColumn Size="3">
+            <RadzenLabel Text="Title" />
+        </RadzenColumn>
+        <RadzenColumn>
+            <RadzenTextBox @bind-Value="@Event.Title" Name="Name" />
+            <RadzenRequiredValidator Text="Title is required" Component="Name" />
+        </RadzenColumn>
+    </RadzenRow>
+    <RadzenRow style="margin-bottom: 16px">
+        <RadzenColumn Size="3">
+            <RadzenLabel Text="Description" />
+        </RadzenColumn>
+        <RadzenColumn>
+            <RadzenTextArea @bind-Value="@Event.Description" Name="Description" Placeholder="Each person brings their own snacks..." class="w-100" />
+            <RadzenRequiredValidator Text="Title is required" Component="Description" />
+        </RadzenColumn>
+    </RadzenRow>
+
+    <hr />
+
+    <RadzenRow style="margin-bottom: 16px">
+        <RadzenColumn Size="6">
+            <RadzenRow>
+                <RadzenLabel Text="From" />
+            </RadzenRow>
+            <RadzenRow>
+                <RadzenDatePicker @bind-Value="@Event.StartDate" Name="Start" ShowTime="true" />
+                <RadzenRequiredValidator Text="Start is required" Component="Start" />
+            </RadzenRow>
+        </RadzenColumn>
+        <RadzenColumn Size="6">
+            <RadzenRow>
+                <RadzenLabel Text="To" />
+            </RadzenRow>
+            <RadzenRow>
+                <RadzenDatePicker Name="End" @bind-Value="@Event.EndDate" ShowTime="true" />
+                <RadzenRequiredValidator Component="End" Text="End is required" />
+            </RadzenRow>
+        </RadzenColumn>
+    </RadzenRow>
+
+    <hr />
+
+    <div class="row">
+        <div class="col">
+            <RadzenButton ButtonType="ButtonType.Submit" Text="Save" />
+        </div>
+    </div>
+</RadzenTemplateForm>
