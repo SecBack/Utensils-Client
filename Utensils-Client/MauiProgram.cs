@@ -2,7 +2,6 @@
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Radzen;
-using Utensils_Client.Data;
 using Utensils_Client.Shared.Handlers;
 using Utensils_Client.Shared.Services;
 
@@ -34,12 +33,11 @@ public static class MauiProgram
         builder.Services.AddHttpClient("Data", client => client.BaseAddress = new Uri("http://localhost:5000"))
             .AddHttpMessageHandler(() => new TokenHandler());
 
-        //Register needed elements for authentication
+        // Register needed elements for authentication
         builder.Services.AddAuthorizationCore();
         builder.Services.AddScoped<CustomAuthenticationStateProvider>();
         builder.Services.AddScoped<AuthenticationStateProvider>(s => s.GetRequiredService<CustomAuthenticationStateProvider>());
 
-        builder.Services.AddSingleton<WeatherForecastService>();
 		builder.Services.AddScoped<AuthService>();
 		builder.Services.AddScoped<GroupService>();
 

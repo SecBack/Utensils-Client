@@ -1,0 +1,14 @@
+﻿@using Utensils_Client.Shared.Services;
+@inject AuthService AuthService
+
+
+<RadzenHeader>
+    <RadzenButton Text="Logout" Click="OnLogout" Style="float: right;"></RadzenButton>
+</RadzenHeader>
+
+@code {
+    private async Task OnLogout()
+    {
+        await AuthService.Logout();
+    }
+}

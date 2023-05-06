@@ -23,15 +23,13 @@ namespace Utensils_Client.Shared.Handlers
 
         public async Task<string> GetUserToken()
         {
-            var userJson = await SecureStorage.GetAsync("user");
-            if (userJson == null)
+            var token = await SecureStorage.GetAsync("jwtToken");
+            if (token == null)
             {
                 return null;
             }
 
-            AuthModel user = JsonConvert.DeserializeObject<AuthModel>(userJson);
-
-            return user.Token;
+            return token;
         }
     }
 }

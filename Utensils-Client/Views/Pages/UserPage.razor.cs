@@ -39,6 +39,9 @@ namespace Utensils_Client.Pages
         protected async Task OnGroupSelected(DataGridCellMouseEventArgs<GroupDto> args)
         {
             SelectedGroup = await GroupService.GetGroupMembers(args.Data.Id);
+            // determin if the user is a member of the selected group
+            UserDto user = await AuthService.GetCurrentUser();
+            IsMemberOfSelectedGroup = SelectedGroup.Users.Any(m => m.Id == user.Id);
         }
 
         protected async Task OnJoinGroupSwitch(GroupDto selectedGroup)
@@ -51,6 +54,7 @@ namespace Utensils_Client.Pages
             };
 
             SelectedGroup = await GroupService.UpdateGroup(request);
+            IsMemberOfSelectedGroup = !IsMemberOfSelectedGroup;
         }
     }
 }

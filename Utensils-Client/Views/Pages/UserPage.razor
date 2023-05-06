@@ -35,7 +35,7 @@
         </RadzenDataGrid>
     </RadzenCard>
 
-    <RadzenCard Style="rounded">
+    <RadzenCard Style="rounded; width: 100%;">
         <RadzenRow>
             <RadzenColumn>
                 @if (SelectedGroup != null) {
@@ -63,14 +63,9 @@
                 </RadzenAccordionItem>
                 <RadzenAccordionItem Text="Settings">
                     <RadzenRow>
-                        <RadzenColumn>
-                            <RadzenSwitch Value="IsMemberOfSelectedGroup" Change="@(() => OnJoinGroupSwitch(SelectedGroup))" />
-                        </RadzenColumn>
-                        <RadzenColumn>
-                            <RadzenText Text="Join the group"></RadzenText>
-                        </RadzenColumn>
+                        <RadzenSwitch Value="IsMemberOfSelectedGroup" Change="@(() => OnJoinGroupSwitch(SelectedGroup))" />
+                        <RadzenText Text="Join the group"></RadzenText>
                     </RadzenRow>
-                    <RadzenText Text="Events"></RadzenText>
                 </RadzenAccordionItem>
             </Items>
         </RadzenAccordion>

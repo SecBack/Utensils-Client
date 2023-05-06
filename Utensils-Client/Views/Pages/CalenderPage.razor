@@ -1,13 +1,14 @@
 ﻿@page "/calender"
 @using Utensils_Client.Pages;
+@using global::Shared.Dto.Models;
 @inherits CalenderPageLogic
 
 hi from calender page
 
-@*<RadzenScheduler 
+<RadzenScheduler 
     @ref=@Scheduler
     Data=@Events
-    TItem="Event"
+    TItem="EventDto"
     SlotRender=@OnSlotRender
     SlotSelect=@OnSlotSelect
     AppointmentSelect=@OnEventSelect
@@ -22,5 +23,5 @@ hi from calender page
     <RadzenWeekView />
     <RadzenMonthView />
     <RadzenYearView />
-</RadzenScheduler>*@
+</RadzenScheduler>
 

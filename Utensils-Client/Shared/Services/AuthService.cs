@@ -49,23 +49,23 @@ namespace Utensils_Client.Shared.Services
             }
         }
 
+        public async Task Logout()
+        {
+            await _customAuthenticationStateProvider.Logout();
+            _navigationManager.NavigateTo("/login");
+        }
+
         public async Task<UserDto> GetCurrentUser()
         {
             AuthenticationState authState = await _customAuthenticationStateProvider.GetAuthenticationStateAsync();
-            string? userName = authState.User.Identity.Name;
+            var id = authState.User.Claims.First(c => c.Type.Contains("nameidentifier")).Value;
+            //var userName = authState.User.Claims.First(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name").Value;
+            //var email = authState.User.Claims.First(c => c.Type.Contains("email")).Value;
 
-            if (userName == null)
-            {
-                return null;
-            }
+            HttpResponseMessage response = await _httpClient.GetAsync($"/api/users/{id}/details");
+            UserDto user = await response.Content.ReadFromJsonAsync<UserDto>();
 
-            HttpResponseMessage response = await _httpClient.GetAsync($"/api/users/{userName}");
-            if (!response.IsSuccessStatusCode)
-            {
-                return null;
-            }
-
-            return await response.Content.ReadFromJsonAsync<UserDto>();
+            return user;
         }
     }
 }

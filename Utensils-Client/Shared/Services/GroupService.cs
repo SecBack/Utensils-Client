@@ -1,13 +1,6 @@
-﻿using Microsoft.AspNetCore.Components;
-using Shared.Dto.Auth;
-using Shared.Dto.Models;
+﻿using Shared.Dto.Models;
 using Shared.Requests;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http.Json;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Utensils_Client.Shared.Services
 {

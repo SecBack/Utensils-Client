@@ -32,14 +32,14 @@ namespace Utensils_Client.Shared.Services
                     string userId = jwtSecurityToken.Claims.FirstOrDefault(c => c.Type == "nameid")?.Value;
                     string userName = jwtSecurityToken.Claims.FirstOrDefault(c => c.Type == "unique_name")?.Value;
                     string email = jwtSecurityToken.Claims.FirstOrDefault(c => c.Type == "email")?.Value;
-                    string phone = jwtSecurityToken.Claims.FirstOrDefault(c => c.Type == "phone")?.Value;
+                    //string phone = jwtSecurityToken.Claims.FirstOrDefault(c => c.Type == "phone")?.Value;
 
                     var identity = new ClaimsIdentity(new[]
                     {
                         new Claim(ClaimTypes.NameIdentifier, userId),
                         new Claim(ClaimTypes.Name, userName),
-                        new Claim(ClaimTypes.Email, email),
-                        new Claim(ClaimTypes.MobilePhone, phone),
+                        new Claim(ClaimTypes.Email, email)
+                        //new Claim(ClaimTypes.MobilePhone, phone),
                     }, "Custom authentication");
 
                     return new AuthenticationState(new ClaimsPrincipal(identity));

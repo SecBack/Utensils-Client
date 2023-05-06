@@ -1,20 +1,33 @@
 ﻿@using Utensils_Client.Views
 @inherits LayoutComponentBase
 
-<div class="page">
+@*<div class="page">
+    <TopBar></TopBar>
     <main>
-        <RadzenColumn>
-            <RadzenRow>
-                <article class="content px-4">
-                    @Body
-                </article>
-            </RadzenRow>
-            <RadzenRow AlignItems="AlignItems.Center" JustifyContent="JustifyContent.Center">
-                <BottomNavigation></BottomNavigation>
-            </RadzenRow>
-        </RadzenColumn>
+        <article class="content px-4">
+            @Body
+        </article>
 
         <RadzenDialog />
         <RadzenNotification />
     </main>
-</div>
+    <RadzenColumn>
+        <RadzenRow AlignItems="AlignItems.Center" JustifyContent="JustifyContent.Center">
+            <BottomNavigation></BottomNavigation>
+        </RadzenRow>
+    </RadzenColumn>
+</div>*@
+
+<RadzenLayout>
+    <RadzenHeader >
+        <TopBar></TopBar>
+    </RadzenHeader>
+    <RadzenBody>
+        <div class="rz-p-4">
+            @Body
+        </div>
+    </RadzenBody>
+    <RadzenFooter>
+        <BottomNavigation></BottomNavigation>
+    </RadzenFooter>
+</RadzenLayout>
