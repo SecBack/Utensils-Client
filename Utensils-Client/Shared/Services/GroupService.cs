@@ -28,6 +28,7 @@ namespace Utensils_Client.Shared.Services
         public async Task<GroupDto> GetGroupMembers(Guid groupId)
         {
             HttpResponseMessage response = await httpClient.GetAsync($"/api/groups/{groupId}");
+            response.EnsureSuccessStatusCode();
             GroupDto group = await response.Content.ReadFromJsonAsync<GroupDto>();
 
             return group;
