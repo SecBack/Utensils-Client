@@ -2,7 +2,23 @@
 @inherits EventDialogLogic
 
 <RadzenTemplateForm TItem="EventDto" Data="@Event" Submit=@OnSubmit>
-    <RadzenRow style="margin-bottom: 16px">
+    <RadzenRow Style="margin-bottom: 16px">
+        <RadzenColumn Size="3">
+            <RadzenLabel Text="Group" />
+        </RadzenColumn>
+        <RadzenColumn>
+            <RadzenAutoComplete
+                @bind-Value=@GroupNameSearch
+                Data="UserDetails.Groups"
+                TextProperty="Name"
+                Name="Group"
+                Placeholder="search...">
+            </RadzenAutoComplete>
+            <RadzenRequiredValidator Text="Group is required" Component="Group" />
+        </RadzenColumn>
+    </RadzenRow>
+
+    <RadzenRow Style="margin-bottom: 16px">
         <RadzenColumn Size="3">
             <RadzenLabel Text="Title" />
         </RadzenColumn>
@@ -11,7 +27,8 @@
             <RadzenRequiredValidator Text="Title is required" Component="Name" />
         </RadzenColumn>
     </RadzenRow>
-    <RadzenRow style="margin-bottom: 16px">
+
+    <RadzenRow Style="margin-bottom: 16px">
         <RadzenColumn Size="3">
             <RadzenLabel Text="Description" />
         </RadzenColumn>
@@ -23,7 +40,7 @@
 
     <hr />
 
-    <RadzenRow style="margin-bottom: 16px">
+    <RadzenRow Style="margin-bottom: 16px">
         <RadzenColumn Size="6">
             <RadzenRow>
                 <RadzenLabel Text="From" />

@@ -5,6 +5,7 @@ using Shared.Dto.Models;
 using Utensils_Client.Shared.Services;
 using Radzen;
 using Utensils_Client.Views.Dialogs;
+using Shared;
 
 namespace Utensils_Client.Pages
 {
@@ -24,12 +25,21 @@ namespace Utensils_Client.Pages
 
         protected async Task OnSlotSelect(SchedulerSlotSelectEventArgs args)
         {
+            // prepare the event details
+            SelectedEvent = new EventDto
+            {
+                StartDate = args.Start,
+                EndDate = args.End,
+                EventType = EventType.Generic
+            };
+
             // wait for the user to fill in the event details
             await DialogService.OpenAsync<EventDialog>(
                 "Add Event",
                 new Dictionary<string, object>
                 {
-                    { "InputEvent", SelectedEvent }
+                    { "InputEvent", SelectedEvent },
+                    { "UserDetails", UserDetails },
                 },
                 options: new DialogOptions
                 {
@@ -39,7 +49,6 @@ namespace Utensils_Client.Pages
 
             // reload the scheduler to show the new event
             await OnInitializedAsync();
-
             await Scheduler.Reload();
         }
 

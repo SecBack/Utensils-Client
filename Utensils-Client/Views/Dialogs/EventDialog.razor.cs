@@ -13,7 +13,10 @@ namespace Utensils_Client.Views.Dialogs
         [Inject ] private EventService _eventService { get; set; }
 
         [Parameter] public EventDto InputEvent { get; set; }
+        [Parameter] public UserDto UserDetails { get; set; }
+ 
         protected EventDto Event { get; set; } = new();
+        protected string GroupNameSearch;
 
         protected override async Task OnInitializedAsync()
         {
@@ -24,6 +27,9 @@ namespace Utensils_Client.Views.Dialogs
 
         protected async Task OnSubmit()
         {
+            // find the group that the user selected
+            GroupDto selectedGroup = UserDetails.Groups.FirstOrDefault(g => g.Name == GroupNameSearch);
+
             // convert the EventDto to a CreateEventRequest
             CreateEventRequest request = new()
             {
@@ -31,12 +37,12 @@ namespace Utensils_Client.Views.Dialogs
                 Description = Event.Description,
                 StartDate = Event.StartDate,
                 EndDate = Event.EndDate,
-                Group = Event.GroupId
+                EventType = Event.EventType,
+                Group = selectedGroup,
+                UserId = UserDetails.Id
             };
 
-            //TODO: When a user creates an event, they should be able to choose which group it belongs to
-
-            EventDto createdEvent = await _eventService.CreateEvent(Event);
+            EventDto createdEvent = await _eventService.CreateEvent(request);
 
             _dialogService.Close();
         }

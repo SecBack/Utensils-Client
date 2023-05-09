@@ -47,7 +47,6 @@ namespace Utensils_Client.Shared.Services
             }
             catch (Exception ex)
             {
-                //This should be more properly handled
                 Console.WriteLine("Request failed:" + ex.ToString());
             }
 
